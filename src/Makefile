@@ -1,10 +1,12 @@
 OBJ := dbc
 CC := gcc
-SRC := main.o
+SRC := main.o ftrace.o init.o mem.o sched.o
+INC := ../include
 
 ${OBJ}: ${SRC}
-	@${CC} $^ -o $@
+	@${CC} $^ -o $@ -Tlink.lds
 	@rm -f *.o
+	@echo $(shell date) " - compiled ok"
 
-%.o: %c
-	@${CC} -c $^ -o $@
+%.o: %.c
+	@${CC} -c $^ -o $@ -I${INC}
